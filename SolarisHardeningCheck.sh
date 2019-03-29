@@ -260,7 +260,7 @@ CheckDebugLevelDaemonLogging() {
 	printf "  %-70s" "4.3 Check Debug Level Daemon Logging"
 
 	output=`svcs -Ho state svc:/system/system-log`
-	if [ "$output" = "onlie" ]; then
+	if [ "$output" = "online" ]; then
 		output=`grep -v "^#" /etc/syslog.conf | grep /var/log/connlog`
 		if [ -z "$output" ]; then
 			printf "\t\t\t${red}FAILED${normal}\n"
@@ -276,7 +276,7 @@ CheckDebugLevelDaemonLogging() {
 CapturesyslogAUTHMessages() {
 	printf "  %-70s" "4.4 Capture syslog AUTH Messages"
 	output=`svcs -Ho state svc:/system/system-log`
-	if [ "$output" = "onlie" ]; then
+	if [ "$output" = "online" ]; then
 		output=`grep -v "^#" /etc/syslog.conf | grep /var/log/authlog`
 		if [ -z "$output" ]; then
 			printf "\t\t\t${red}FAILED${normal}\n"
@@ -294,7 +294,7 @@ EnableLoginRecords() {
 	printf "  %-70s" "4.5 Enable Login Records"
 	if [ -f  "/var/adm/loginlog" ]; then
 		grep loginlog /etc/logadm.conf >/dev/null
-		if [ $? -eq 0]; then
+		if [ $? -eq 0 ]; then
 			printf "\t\t\t${green}OK${normal}\n"
 		else
 			printf "\t\t\t${red}FAILED${normal}\n"
@@ -349,7 +349,7 @@ EnableCronLogging() {
 EnableSystemAccounting() {
 	printf "  %-70s" "4.8 Enable System Accounting"
 	output=`svcs -Ho state svc:/system/sar 2>/dev/null`
-	if [ "$output" = "onlie" ]; then
+	if [ "$output" = "online" ]; then
 		if [ find /var/adm/sa -type f -mmin -$((60)) ]; then
 		# if [ "$(ls -A /var/adm/sa)" ]; then
 			printf "\t\t\t${green}OK${normal}\n"
